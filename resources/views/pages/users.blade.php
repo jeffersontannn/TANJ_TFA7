@@ -4,14 +4,14 @@
 
 @section('content')
     @if(session('success'))
-        <div style="background-color: #d1fae5; color: #065f46; padding: 1rem; border-radius: 8px; margin-bottom: 1rem;">
+        <div style="background: linear-gradient(135deg, #d1fae5, #a7f3d0); color: #065f46; padding: 1rem; border-radius: 8px; margin-bottom: 1rem; border-left: 4px solid #10b981;">
             {{ session('success') }}
         </div>
     @endif
     
     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
-        <h1 style="margin: 0;">User Accounts</h1>
-        <a href="{{ route('users.create') }}" class="btn btn-sm">+ Add User</a>
+        <h1 class="gradient-text" style="margin: 0;">User Accounts</h1>
+        <a href="{{ route('users.create') }}" class="btn btn-success btn-sm">+ Add User</a>
     </div>
 
     <div class="card">
@@ -26,7 +26,7 @@
             </select>
         </div>
 
-        <table id="usersTable">
+        <table id="usersTable" class="colorful-table-header">
             <thead>
                 <tr>
                     <th>ID</th>
@@ -38,7 +38,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach($users as $user)
+                @foreach($users as $index => $user)
                     @php
                         $role = 'cashier';
                         if (strtolower($user->username) === 'admin') $role = 'admin';
@@ -58,6 +58,9 @@
                             'manager' => '📋',
                             'supervisor' => '👔'
                         ];
+                        
+                        $avatarClasses = ['avatar', 'avatar-alt1', 'avatar-alt2', 'avatar-alt3', 'avatar-alt4', 'avatar-alt5', 'avatar-alt6'];
+                        $avatarClass = $avatarClasses[$index % count($avatarClasses)];
                     @endphp
                     <tr class="user-row" data-username="{{ strtolower($user->username) }}" data-name="{{ strtolower($user->full_name) }}" data-role="{{ $role }}">
                         <td>{{ $user->id }}</td>
@@ -66,7 +69,7 @@
                                 @if($user->avatar_url)
                                     <img src="{{ $user->avatar_url }}" alt="{{ $user->full_name }}" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover; margin-right: 0.75rem;">
                                 @else
-                                    <div class="avatar">{{ substr($user->full_name, 0, 1) }}</div>
+                                    <div class="{{ $avatarClass }}">{{ substr($user->full_name, 0, 1) }}</div>
                                 @endif
                                 <div>
                                     <strong>{{ $user->full_name }}</strong>
@@ -96,39 +99,43 @@
     </div>
 
     <div class="grid grid-3" style="margin-top: 2rem;">
-        <div class="dashboard-card">
-            <h3>User Stats</h3>
+        <div class="dashboard-card rainbow-border">
+            <h3 class="gradient-text">User Stats</h3>
             <div style="display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid var(--border-color);">
                 <span>Total Users</span>
-                <strong>{{ $users->count() }}</strong>
+                <strong style="color: #8b5cf6;">{{ $users->count() }}</strong>
             </div>
             <div style="display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid var(--border-color);">
                 <span>Administrators</span>
-                <strong style="color: var(--secondary);">1</strong>
+                <strong style="color: #ec4899;">1</strong>
             </div>
             <div style="display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid var(--border-color);">
                 <span>Cashiers</span>
-                <strong style="color: var(--primary);">2</strong>
+                <strong style="color: #06b6d4;">2</strong>
             </div>
             <div style="display: flex; justify-content: space-between; padding: 0.5rem 0;">
                 <span>Active Now</span>
-                <strong style="color: var(--success);">{{ $users->count() }}</strong>
+                <strong style="color: #10b981;">{{ $users->count() }}</strong>
             </div>
         </div>
-        <div class="dashboard-card">
-            <h3>Quick Actions</h3>
-            <a href="{{ route('users.create') }}" class="btn btn-sm" style="width: 100%; margin-bottom: 0.5rem; text-align: center;">👤 Create User</a>
+        <div class="dashboard-card rainbow-border">
+            <h3 class="gradient-text">Quick Actions</h3>
+            <a href="{{ route('users.create') }}" class="btn btn-sm btn-success" style="width: 100%; margin-bottom: 0.5rem; text-align: center;">👤 Create User</a>
             <button class="btn btn-sm btn-secondary" style="width: 100%; margin-bottom: 0.5rem;">📧 Send Invite</button>
-            <button class="btn btn-sm btn-outline" style="width: 100%;">🔐 Reset Passwords</button>
+            <button class="btn btn-sm btn-warning" style="width: 100%;">🔐 Reset Passwords</button>
         </div>
-        <div class="dashboard-card">
-            <h3>Recent Users</h3>
-            @foreach($users->take(3) as $user)
+        <div class="dashboard-card rainbow-border">
+            <h3 class="gradient-text">Recent Users</h3>
+            @foreach($users->take(3) as $index => $user)
+                @php
+                    $iconClasses = ['activity-icon', 'activity-icon alt1', 'activity-icon alt2', 'activity-icon alt3'];
+                    $iconClass = $iconClasses[$index % count($iconClasses)];
+                @endphp
                 <div class="activity-item">
                     @if($user->avatar_url)
                         <img src="{{ $user->avatar_url }}" alt="{{ $user->full_name }}" style="width: 36px; height: 36px; border-radius: 50%; object-fit: cover;">
                     @else
-                        <div class="activity-icon">{{ substr($user->full_name, 0, 1) }}</div>
+                        <div class="{{ $iconClass }}">{{ substr($user->full_name, 0, 1) }}</div>
                     @endif
                     <div class="activity-content">
                         <strong>{{ $user->full_name }}</strong>
