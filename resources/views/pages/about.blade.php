@@ -10,6 +10,18 @@
         </p>
     </div>
 
+    <div class="card" style="text-align: center; padding: 2rem;">
+        <h2 style="margin-bottom: 1.5rem;">Owner & Editor</h2>
+        <div style="display: flex; align-items: center; justify-content: center; gap: 2rem; flex-wrap: wrap;">
+            <img src="{{ asset('storage/avatars/admin-photo.jpg') }}" alt="Jefferson Tann" style="width: 120px; height: 120px; border-radius: 50%; object-fit: cover; border: 4px solid var(--primary); box-shadow: var(--shadow-lg);">
+            <div style="text-align: left;">
+                <h3 style="font-size: 1.5rem; margin-bottom: 0.5rem;">Jefferson Tann</h3>
+                <p style="color: var(--text-secondary); margin-bottom: 0.5rem;">Owner & Editor of TANJ POS</p>
+                <p style="font-size: 0.9rem; color: var(--text-secondary);">Full-stack developer passionate about building modern web applications with Laravel.</p>
+            </div>
+        </div>
+    </div>
+
     <div class="grid grid-3" style="margin-bottom: 2rem;">
         <div class="card" style="text-align: center;">
             <div class="feature-icon primary" style="margin: 0 auto 1rem;">🎯</div>

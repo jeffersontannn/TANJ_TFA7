@@ -4,14 +4,14 @@
 
 @section('content')
     @if(session('success'))
-        <div style="background: linear-gradient(135deg, #d1fae5, #a7f3d0); color: #065f46; padding: 1rem; border-radius: 8px; margin-bottom: 1rem; border-left: 4px solid #10b981;">
+        <div class="alert-success">
             {{ session('success') }}
         </div>
     @endif
     
-    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
-        <h1 class="gradient-text" style="margin: 0;">Customer Accounts</h1>
-        <a href="{{ route('customers.create') }}" class="btn btn-success btn-sm">+ Add Customer</a>
+    <div class="page-header">
+        <h1 class="gradient-text">Customer Accounts</h1>
+        <a href="{{ route('customers.create') }}" class="btn btn-success btn-sm">Add Customer</a>
     </div>
 
     <div class="card">
