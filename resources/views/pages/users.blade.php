@@ -3,9 +3,15 @@
 @section('title', 'Users - TANJ POS')
 
 @section('content')
+    @if(session('success'))
+        <div style="background-color: #d1fae5; color: #065f46; padding: 1rem; border-radius: 8px; margin-bottom: 1rem;">
+            {{ session('success') }}
+        </div>
+    @endif
+    
     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
         <h1 style="margin: 0;">User Accounts</h1>
-        <button class="btn btn-sm">+ Add User</button>
+        <a href="{{ route('users.create') }}" class="btn btn-sm">+ Add User</a>
     </div>
 
     <div class="card">
@@ -57,7 +63,11 @@
                         <td>{{ $user->id }}</td>
                         <td>
                             <div class="user-cell">
-                                <div class="avatar">{{ substr($user->full_name, 0, 1) }}</div>
+                                @if($user->avatar_url)
+                                    <img src="{{ $user->avatar_url }}" alt="{{ $user->full_name }}" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover; margin-right: 0.75rem;">
+                                @else
+                                    <div class="avatar">{{ substr($user->full_name, 0, 1) }}</div>
+                                @endif
                                 <div>
                                     <strong>{{ $user->full_name }}</strong>
                                     <br>
@@ -70,9 +80,12 @@
                         <td><span class="badge badge-active">Active</span></td>
                         <td>
                             <div class="actions">
-                                <button class="action-btn view" onclick="viewUser({{ $user->id }})">View</button>
-                                <button class="action-btn edit" onclick="editUser({{ $user->id }})">Edit</button>
-                                <button class="action-btn delete" onclick="deleteUser({{ $user->id }})">Delete</button>
+                                <a href="{{ route('users.edit', $user) }}" class="action-btn edit">Edit</a>
+                                <form action="{{ route('users.destroy', $user) }}" method="POST" style="display: inline;" onsubmit="return confirm('Are you sure you want to delete this user?');">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="action-btn delete">Delete</button>
+                                </form>
                             </div>
                         </td>
                     </tr>
@@ -104,7 +117,7 @@
         </div>
         <div class="dashboard-card">
             <h3>Quick Actions</h3>
-            <button class="btn btn-sm" style="width: 100%; margin-bottom: 0.5rem;">👤 Create User</button>
+            <a href="{{ route('users.create') }}" class="btn btn-sm" style="width: 100%; margin-bottom: 0.5rem; text-align: center;">👤 Create User</a>
             <button class="btn btn-sm btn-secondary" style="width: 100%; margin-bottom: 0.5rem;">📧 Send Invite</button>
             <button class="btn btn-sm btn-outline" style="width: 100%;">🔐 Reset Passwords</button>
         </div>
@@ -112,7 +125,11 @@
             <h3>Recent Users</h3>
             @foreach($users->take(3) as $user)
                 <div class="activity-item">
-                    <div class="activity-icon">{{ substr($user->full_name, 0, 1) }}</div>
+                    @if($user->avatar_url)
+                        <img src="{{ $user->avatar_url }}" alt="{{ $user->full_name }}" style="width: 36px; height: 36px; border-radius: 50%; object-fit: cover;">
+                    @else
+                        <div class="activity-icon">{{ substr($user->full_name, 0, 1) }}</div>
+                    @endif
                     <div class="activity-content">
                         <strong>{{ $user->full_name }}</strong>
                         <span>@{{ $user->username }}</span>
@@ -146,20 +163,6 @@
             });
 
             document.getElementById('noResults').style.display = visibleCount === 0 ? 'block' : 'none';
-        }
-
-        function viewUser(id) {
-            alert('View user ID: ' + id);
-        }
-
-        function editUser(id) {
-            alert('Edit user ID: ' + id);
-        }
-
-        function deleteUser(id) {
-            if (confirm('Are you sure you want to delete this user?')) {
-                alert('Delete user ID: ' + id);
-            }
         }
     </script>
 @endsection

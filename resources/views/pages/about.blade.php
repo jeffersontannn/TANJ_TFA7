@@ -76,7 +76,7 @@
         <p>Stay updated with the latest features and improvements to TANJ POS.</p>
         <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
             <a href="{{ route('home') }}" class="btn" style="background: #fff; color: var(--primary); box-shadow: none;">Back to Home</a>
-            <a href="{{ route('customers') }}" class="btn btn-secondary">View Customers</a>
+            <a href="{{ route('customers.index') }}" class="btn btn-secondary">View Customers</a>
         </div>
     </div>
 @endsection

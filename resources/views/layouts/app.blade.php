@@ -800,8 +800,8 @@
             <ul id="mobile-menu">
                 <li><a href="{{ route('home') }}" class="{{ request()->routeIs('home') ? 'active' : '' }}">Home</a></li>
                 <li><a href="{{ route('about') }}" class="{{ request()->routeIs('about') ? 'active' : '' }}">About</a></li>
-                <li><a href="{{ route('customers') }}" class="{{ request()->routeIs('customers') ? 'active' : '' }}">Customers</a></li>
-                <li><a href="{{ route('users') }}" class="{{ request()->routeIs('users') ? 'active' : '' }}">Users</a></li>
+                <li><a href="{{ route('customers.index') }}" class="{{ request()->routeIs('customers.*') ? 'active' : '' }}">Customers</a></li>
+                <li><a href="{{ route('users.index') }}" class="{{ request()->routeIs('users.*') ? 'active' : '' }}">Users</a></li>
             </ul>
             <div class="nav-actions">
                 <button class="notification-btn" onclick="showNotifications()">
@@ -826,8 +826,8 @@
                 <h4>Quick Links</h4>
                 <a href="{{ route('home') }}">Home</a>
                 <a href="{{ route('about') }}">About</a>
-                <a href="{{ route('customers') }}">Customers</a>
-                <a href="{{ route('users') }}">Users</a>
+                <a href="{{ route('customers.index') }}">Customers</a>
+                <a href="{{ route('users.index') }}">Users</a>
             </div>
             <div class="footer-section">
                 <h4>Features</h4>

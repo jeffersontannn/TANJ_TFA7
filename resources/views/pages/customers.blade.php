@@ -3,9 +3,15 @@
 @section('title', 'Customers - TANJ POS')
 
 @section('content')
+    @if(session('success'))
+        <div style="background-color: #d1fae5; color: #065f46; padding: 1rem; border-radius: 8px; margin-bottom: 1rem;">
+            {{ session('success') }}
+        </div>
+    @endif
+    
     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
         <h1 style="margin: 0;">Customer Accounts</h1>
-        <button class="btn btn-sm">+ Add Customer</button>
+        <a href="{{ route('customers.create') }}" class="btn btn-sm">+ Add Customer</a>
     </div>
 
     <div class="card">
@@ -46,9 +52,12 @@
                         <td>{{ $customer->phone }}</td>
                         <td>
                             <div class="actions">
-                                <button class="action-btn view" onclick="viewCustomer({{ $customer->id }})">View</button>
-                                <button class="action-btn edit" onclick="editCustomer({{ $customer->id }})">Edit</button>
-                                <button class="action-btn delete" onclick="deleteCustomer({{ $customer->id }})">Delete</button>
+                                <a href="{{ route('customers.edit', $customer) }}" class="action-btn edit">Edit</a>
+                                <form action="{{ route('customers.destroy', $customer) }}" method="POST" style="display: inline;" onsubmit="return confirm('Are you sure you want to delete this customer?');">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="action-btn delete">Delete</button>
+                                </form>
                             </div>
                         </td>
                     </tr>
@@ -76,7 +85,7 @@
         </div>
         <div class="dashboard-card">
             <h3>Quick Actions</h3>
-            <button class="btn btn-sm" style="width: 100%; margin-bottom: 0.5rem;">📥 Import Customers</button>
+            <a href="{{ route('customers.create') }}" class="btn btn-sm" style="width: 100%; margin-bottom: 0.5rem; text-align: center;">📥 Add Customer</a>
             <button class="btn btn-sm btn-secondary" style="width: 100%; margin-bottom: 0.5rem;">📤 Export Customers</button>
             <button class="btn btn-sm btn-outline" style="width: 100%;">🔄 Refresh Data</button>
         </div>
@@ -117,20 +126,6 @@
             });
 
             document.getElementById('noResults').style.display = visibleCount === 0 ? 'block' : 'none';
-        }
-
-        function viewCustomer(id) {
-            alert('View customer ID: ' + id);
-        }
-
-        function editCustomer(id) {
-            alert('Edit customer ID: ' + id);
-        }
-
-        function deleteCustomer(id) {
-            if (confirm('Are you sure you want to delete this customer?')) {
-                alert('Delete customer ID: ' + id);
-            }
         }
     </script>
 @endsection

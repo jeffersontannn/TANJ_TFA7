@@ -20,6 +20,7 @@ class User extends Authenticatable
     protected $fillable = [
         'username',
         'full_name',
+        'avatar',
     ];
 
     /**
@@ -42,5 +43,16 @@ class User extends Authenticatable
             'created_at' => 'datetime',
             'updated_at' => 'datetime',
         ];
+    }
+
+    /**
+     * Get the avatar URL.
+     */
+    public function getAvatarUrlAttribute()
+    {
+        if ($this->avatar) {
+            return asset('storage/' . $this->avatar);
+        }
+        return null;
     }
 }

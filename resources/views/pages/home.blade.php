@@ -7,8 +7,8 @@
         <h1>Welcome to TANJ Point of Sale</h1>
         <p>A modern, powerful POS system built with Laravel to streamline your retail operations, manage customers, and track sales efficiently.</p>
         <div class="hero-actions">
-            <a href="{{ route('customers') }}" class="btn btn-secondary">View Customers</a>
-            <a href="{{ route('users') }}" class="btn">View Users</a>
+            <a href="{{ route('customers.index') }}" class="btn btn-secondary">View Customers</a>
+            <a href="{{ route('users.index') }}" class="btn">View Users</a>
             <a href="{{ route('about') }}" class="btn btn-outline" style="border-color: #fff; color: #fff;">Learn More</a>
         </div>
     </div>
@@ -127,8 +127,8 @@
         <h2>Ready to Get Started?</h2>
         <p>Explore the customer and user management features to see how TANJ POS can help your business.</p>
         <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
-            <a href="{{ route('customers') }}" class="btn" style="background: #fff; color: var(--primary); box-shadow: none;">View Customers</a>
-            <a href="{{ route('users') }}" class="btn btn-secondary">View Users</a>
+            <a href="{{ route('customers.index') }}" class="btn" style="background: #fff; color: var(--primary); box-shadow: none;">View Customers</a>
+            <a href="{{ route('users.index') }}" class="btn btn-secondary">View Users</a>
         </div>
     </div>
 @endsection
